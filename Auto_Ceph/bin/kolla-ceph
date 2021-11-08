@@ -79,13 +79,12 @@ ARGS=$(getopt -o "${SHORT_OPTS}" -l "${LONG_OPTS}" --name "$0" -- "$@") || { usa
 
 eval set -- "$ARGS"
 
-# BASEDIR=$(dirname $(pwd)) 
-BASEDIR=KOLLA-CEPH-PATH
-INVENTORY="${BASEDIR}/00-hosts"
-PLAYBOOK="${BASEDIR}/site.yml"
-OSPLAYBOOK="${BASEDIR}/os.yml"
-ACTIONPLAYBOOK="${BASEDIR}/action.yml"
-GLOABLE=${BASEDIR}/config/globals.yml
+BASE_DIR=KOLLA-CEPH-PATH
+INVENTORY="${BASE_DIR}/00-hosts"
+PLAYBOOK="${BASE_DIR}/site.yml"
+OSPLAYBOOK="${BASE_DIR}/os.yml"
+ACTIONPLAYBOOK="${BASE_DIR}/action.yml"
+GLOABLE=${BASE_DIR}/config/globals.yml
 VERBOSITY=
 EXTRA_OPTS=${EXTRA_OPTS}
 

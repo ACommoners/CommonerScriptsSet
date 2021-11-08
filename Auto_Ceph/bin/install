@@ -1,8 +1,8 @@
 #!/bin/bash
 
-BASE=$(pwd)
-BASE_DIR=$(dirname ${BASE})
-KOLLA_CEPH_PATH=${BASE}/kolla-ceph
+# BASE=$(pwd)
+BASE_DIR=$(cd $(dirname $0); pwd)
+KOLLA_CEPH_PATH=${BASE_DIR}/kolla-ceph
 
 DOCKER_BASE=/opt
 DOCKER_VERSION=19.03.9
@@ -55,6 +55,7 @@ function kolla_ceph(){
      fi 
      \cp ${KOLLA_CEPH_PATH} /usr/local/bin/
      sed -i "s|KOLLA-CEPH-PATH|${BASE_DIR}|g" /usr/local/bin/kolla-ceph
+     chmod -R 755 /usr/local/bin/kolla-ceph
      logger info "Kolla-ceph install success"
   fi
 
@@ -137,7 +138,7 @@ EOF
 }
 
 
-function download_register(){
+function download_register() {
 
    logger info "Download registry:latest image"
    if [[ ! -f ${DOCKER_BASE}/registry.tar ]];then
