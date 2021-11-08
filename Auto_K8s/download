@@ -223,7 +223,7 @@ EOF
 function download_net_image {
   mkdir -p ${BASE}/image
   logger info "下载 calico 镜像"
-  for image_url in $(cat $(pwd)/yml/calico.yaml |grep image|uniq|  awk '{print $2}');
+  for image_url in $(cat $(pwd)/testfile/plugin-yml/calico.yaml |grep image|uniq|  awk '{print $2}');
   do
      calico_name=$(echo ${image_url} | cut -d'/' -f2)
      if [[ ! -f ${BASE}/image/calico_${calico_name}.tar ]];then
@@ -234,7 +234,7 @@ function download_net_image {
   done
   logger debug "下载 calico 镜像成功, 保存路径: <${BASE}/image/> \n"
   logger info "下载 flannel 镜像"
-  for image_url in $(cat $(pwd)/yml/kube-flannel.yml |grep image|uniq|  awk '{print $2}');
+  for image_url in $(cat $(pwd)/testfile/plugin-yml/kube-flannel.yml |grep image|uniq|  awk '{print $2}');
   do
      flannel_name=$(echo ${image_url} | cut -d'/' -f3)
      if [[ ! -f ${BASE}/image/flannel_${flannel_name}.tar ]];then
@@ -245,7 +245,7 @@ function download_net_image {
   done
   logger debug "下载 flannel 镜像成功, 保存路径: <${BASE}/image/> \n"
   logger info "下载 coredns 镜像" 
-  for coredns_url in $(cat  $(pwd)/yml/coredns.yml |grep -w image|uniq|  awk '{print $2}');
+  for coredns_url in $(cat  $(pwd)/testfile/plugin-yml/coredns.yml |grep -w image|uniq|  awk '{print $2}');
   do
     coredns_name=$(echo ${coredns_url} | cut -d'/' -f2)
     if [[ ! -f  ${BASE}/image/coredns_${coredns_name}.tar ]];then
