@@ -171,18 +171,18 @@ vi /root/Auto_Ceph/config/globals.yml
 
 2.1 初始化ceph主机节点
 
-    kolla-ceph -i /root/Auto_Ceph/00-host os
+    kolla-ceph -i /root/Auto_Ceph/00-hosts os
    
 2.2 部署前检查配置
 
-    kolla-ceph -i /root/Auto_Ceph/00-host prechecks
+    kolla-ceph -i /root/Auto_Ceph/00-hosts prechecks
    
 2.3 部署ceph集群
 
     1、bluestore osd: 为每个osd节点的磁盘打上标签
        parted  /dev/vdc  -s  -- mklabel  gpt  mkpart KOLLA_CEPH_OSD_BOOTSTRAP_BS  1 -1
     2、部署ceph-mon、ceph-osd、ceph-mgr、ceph-rgw、ceph-mds
-       kolla-ceph -i /root/Auto_Ceph/00-host deploy
+       kolla-ceph -i /root/Auto_Ceph/00-hosts deploy
     3、docker exec ceph_mon ceph -s
          cluster:
            id:     4a9e463a-4853-4237-a5c5-9ae9d25bacda
@@ -203,13 +203,13 @@ vi /root/Auto_Ceph/config/globals.yml
 
 2.4 删除操作: ceph集群容器和volume
 
-    kolla-ceph -i /root/Auto_Ceph/00-host  destroy --yes-i-really-really-mean-it
+    kolla-ceph -i /root/Auto_Ceph/00-hosts  destroy --yes-i-really-really-mean-it
   
 2.5 升级操作
 
     1、cd /root/Auto_Ceph/build/ && sh build.sh --tag new_ceph_version
     2、修改最新ceph_tag: "new_ceph_version"
-    3、kolla-ceph -i /root/Auto_Ceph/00-host upgrade
+    3、kolla-ceph -i /root/Auto_Ceph/00-hosts upgrade
    
 2.6 单独更换部署osd
 
