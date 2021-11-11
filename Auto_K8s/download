@@ -42,8 +42,10 @@ pause_version=3.4.1
 sandbox_url=registry.aliyuncs.com/google_containers/pause:${pause_version}
 
 # ingress image
-ingress_version=0.30.0
+ingress_version=0.33.0
+kube_webhook_certgen_version=v1.2.0
 ingress_url=registry.cn-hangzhou.aliyuncs.com/google_containers/nginx-ingress-controller:${ingress_version}
+kube_webhook_certgen_url=jettech/kube-webhook-certgen:${kube_webhook_certgen_version}
 
 function logger() {
   NOW_TIME=$(date +'%Y-%m-%d %H:%M:%S')
@@ -84,7 +86,8 @@ function download_cfssl(){
     fi
   done
   chmod 755 ${cfssl_bin}/bin/*
-  logger debug "cfssl证书工具保存路径: <${cfssl_bin}/bin/> \n"
+  logger debug "cfssl二进制包成功"
+  logger debug "cfssl包保存路径: ${cfssl_bin}/bin/ \n"
 }
 
 # 下载etcd二进制文件
@@ -102,7 +105,8 @@ function download_etcd(){
     logger info "文件已存在: etcd_${etcd_version}"
   fi
   chmod -R 755 ${etcd_bin}/bin/*
-  logger debug "etcd_${etcd_version}二进制包保存路径: <${etcd_bin}/bin/> \n"
+  logger debug "etcd_${etcd_version}二进制包成功"
+  logger debug "etcd_${etcd_version}二进制包保存路径: ${etcd_bin}/bin/ \n"
   
 }
 
@@ -121,7 +125,8 @@ function download_docker(){
      logger info "文件已存在: docker_${docker_version}"
   fi
   chmod -R 755 ${docker_bin}/bin/*
-  logger debug "docker_${docker_version} 二进制包保存路径: <${docker_bin}/bin/> \n"
+  logger debug "docker_${docker_version} 二进制包成功"
+  logger debug "docker_${docker_version} 二进制包保存路径: ${docker_bin}/bin/ \n"
 }
 
 # 下载docker二进制文件
@@ -140,7 +145,8 @@ function download_kube() {
     logger info "文件已存在: kubenetes_${kube_version}"  
   fi
   chmod -R 755 ${kube_bin}/bin/*
-  logger debug "kubenetes_${kube_version} 二进制包保存路径:<${kube_bin}/bin/> \n"
+  logger debug "kubenetes_${kube_version} 二进制包成功"
+  logger debug "kubenetes_${kube_version} 二进制包保存路径: ${kube_bin}/bin/ \n"
 }
 
 function download_cni() {
@@ -154,7 +160,8 @@ function download_cni() {
       logger info "文件已存在: cni_${cni_version}"
    fi
    chmod -R 755 ${cni_bin}/bin/*
-   logger debug "cni_${cni_version} 二进制包保存路径:<${cni_bin}/bin/> \n"
+   logger debug "cni_${cni_version} 二进制包成功"
+   logger debug "cni_${cni_version} 二进制包保存路径: ${cni_bin}/bin/ \n"
 
 
 }
@@ -232,7 +239,7 @@ function download_net_image {
        logger info "镜像: ${BASE}/image/calico_${calico_name}.tar 已存在"
      fi
   done
-  logger debug "下载 calico 镜像成功, 保存路径: <${BASE}/image/> \n"
+  logger debug "下载 calico 镜像成功 \n"
   logger info "下载 flannel 镜像"
   for image_url in $(cat $(pwd)/testfile/plugin-yml/kube-flannel.yml |grep image|uniq|  awk '{print $2}');
   do
@@ -243,7 +250,7 @@ function download_net_image {
         logger info "镜像: ${BASE}/image/flannel_${flannel_name}.tar 已存在"
      fi
   done
-  logger debug "下载 flannel 镜像成功, 保存路径: <${BASE}/image/> \n"
+  logger debug "下载 flannel 镜像成功 \n"
   logger info "下载 coredns 镜像" 
   for coredns_url in $(cat  $(pwd)/testfile/plugin-yml/coredns.yml |grep -w image|uniq|  awk '{print $2}');
   do
@@ -254,7 +261,7 @@ function download_net_image {
       logger info "镜像: ${BASE}/image/coredns_${coredns_name}.tar 已存在"
     fi
   done
-  logger debug "下载 coredns 镜像成功, 保存路径: <${BASE}/image/> \n"
+  logger debug "下载 coredns 镜像成功 \n"
   
   logger info "下载 pause 镜像"
   pause_name=$(echo ${sandbox_url} | cut -d'/' -f3)
@@ -263,7 +270,7 @@ function download_net_image {
   else
      logger info "镜像: ${BASE}/image/pause_${pause_name}.tar 已存在"
   fi 
-  logger debug "下载 pause 镜像成功, 保存路径: <${BASE}/image/> \n"
+  logger debug "下载 pause 镜像成功 \n"
   
 }
 
@@ -275,7 +282,7 @@ function download_register_image() {
   else 
     logger info "镜像: ${BASE}/image/registry.tar 已存在"
   fi
-  logger debug "下载 registry:latest 镜像成功, 保存路径: <${BASE}/image/> \n"
+  logger debug "下载 registry:latest 镜像成功 \n"
 }
 
 
@@ -283,11 +290,17 @@ doenload_ingress_image() {
   mkdir -p ${BASE}/image
   logger info "下载 ingress 镜像"
   if [[ ! -f ${BASE}/image/ingress.tar ]];then
+      mkdir -p ${BASE}/image/ingress
       docker pull ${ingress_url} && docker save -o ${BASE}/image/ingress.tar ${ingress_url} || logger error "镜像下载: ingress:${ingress_version} 失败" 12
   else
      logger info "镜像: ${BASE}/image/ingress.tar  已存在"
   fi
-  logger debug "下载 ingress:${ingress_version} 镜像成功, 保存路径: <${BASE}/image/> \n"
+  if [[ ! -f ${BASE}/image/kube_webhook_certgen.tar ]];then
+      docker pull ${kube_webhook_certgen_url} &&  docker save -o ${BASE}/image/kube_webhook_certgen.tar ${kube_webhook_certgen_url} || logger error "镜像下载:kube_webhook_certge:${kube_webhook_certgen_version} 失败" 12
+  else
+     logger info "镜像: ${BASE}/image/kube_webhook_certgen.tar  已存在"
+  fi
+  logger debug "下载 ingress:${ingress_version} kube_webhook_certgen:${kube_webhook_certgen_version} 镜像成功 \n"
 
 
   logger info "下载 nginx 镜像" 
@@ -296,7 +309,7 @@ doenload_ingress_image() {
   else
       logger info "镜像: ${BASE}/image/nginx.tar  已存在"
   fi
-  logger debug "下载 nginx:latest 镜像成功, 保存路径: <${BASE}/image/> \n"
+  logger debug "下载 nginx:latest 镜像成功 \n"
  
 
 }
