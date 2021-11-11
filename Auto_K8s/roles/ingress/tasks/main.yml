@@ -15,20 +15,26 @@
 - block:
   - name: Copy ingress image to master[0]
     copy:
-      src: "{{ docker_image_dir }}/{{ ingress_file }}"
+      src: "{{ docker_image_dir }}/{{ item }}"
       dest: "{{ docker_image_dir }}"
-  
+    with_items: 
+      - "{{ ingress_file }}"
+
   - name: docker load -i ingress image
     shell: |
-      docker load -i "{{ docker_image_dir }}/{{ ingress_file }}"
+      docker load -i "{{ docker_image_dir }}/{{ item }}"
+    with_items: 
+      - "{{ ingress_file }}"
     
-  - name: ingress image tag
+  - name: kube-webhook-certgen and ingress image tag
     shell: |
       docker tag {{ ingress_tag_name }}:{{ ingress_version }} {{ ingress_tag_name_new }}:{{ ingress_version }}
+      docker tag {{ kube_webhook_certgen_tag_name }}:{{ kube_webhook_certgen_version }} {{ kube_webhook_certgen_tag_name_new }}:{{ kube_webhook_certgen_version }}
 
-  - name: ingress image push
+  - name: kube-webhook-certgen and ingress image push
     shell: |
       docker push {{ ingress_tag_name_new }}:{{ ingress_version }}
+      docker push {{ kube_webhook_certgen_tag_name_new }}:{{ kube_webhook_certgen_version }}
   when:
     - inventory_hostname == docker_registry
     - ingress_image_status.stdout != "{{ ingress_tag_name_new  }}" 
