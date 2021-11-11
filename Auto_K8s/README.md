@@ -2,13 +2,12 @@
 
 #### 项目结构
 ```
-├── download  下载k8s部署依赖包
-├── group_vars 常用变量
-├── hosts 部署主机文件
-├── password_free_conf 多台主机ssh免密自动化配置
-├── roles  部署代码
-├── site.yml 部署入口
-└── testfile 测试文件
+├── download 
+├── group_vars 
+├── hosts 
+├── roles 
+├── site.yml 
+└── testfile 
 ```
 
 > 部署环境: `centos7`及以上
@@ -43,7 +42,7 @@ worker
 
 [loadblance] # k8s集群高可用，未完成
 ```
-####部署包含服务
+#### 部署包含服务
  - k8s集群服务
  - ingress
  - flannel or calico
@@ -51,16 +50,15 @@ worker
 
 #### 部署准备
 ```
-1、下载部署代码并进入auto_k8s目录：git clone https://github.com/self-bug/auto_deploy.git
-2、下载k8s集群依赖包：sh download
+1、下载k8s集群依赖包：sh download
 	> 离线部署: sh downloadh后，打包离线包：tar -zcf /root/kubelw.tar.gz /opt/kubelw  , 然后离线包传到部署机器：tar -zxvf /root/kubelw.tar.gz -C /opt/
-	> 在线部署：sh downloadh后接着第3步
-3、不管是离线还是在线部署，部署节点都需要安装ansible
+	> 在线部署：sh downloadh后接着第2步
+2、不管是离线还是在线部署，部署节点都需要安装ansible
 	> 在线部署：yum install ansible
 	> 离线部署：yum install --downloadonly --downloaddir=$(pwd) ansible 下载好传到部署节点：yum install *
-4、配置k8s-hosts文件
-5、部署节点于其它节点ssh 免密配置
-6、测试网络连通性: ansible -i k8s-hosts all -m ping 
+3、配置k8s-hosts文件
+4、部署节点于其它节点ssh 免密配置,可采用<password_free_conf.sh>一键绵密配置
+5、测试网络连通性: ansible -i k8s-hosts all -m ping 
 ```
 
 #### 执行部署
