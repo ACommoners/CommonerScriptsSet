@@ -1,0 +1,68 @@
+---
+- hosts: all
+  gather_facts: false
+  vars:
+    save_file: "{{ playbook_dir }}/node.yml"
+  tasks:
+  - name: Get system hostname
+    command: hostname
+    register: hostname
+
+  - name: Get system type 
+    command: cat /etc/redhat-release 
+    register: pretty
+
+  - name: Get system kernel
+    command: uname -srmo
+    register: kernel
+
+  - name: Grt system cpu
+    shell: |
+      cpu=$(awk -F':' '/^model name/ {print $2}' /proc/cpuinfo | uniq | sed -e 's/^[ \t]*//')
+      cpun=$(grep -c '^processor' /proc/cpuinfo)
+      cpuc=$(grep '^cpu cores' /proc/cpuinfo | tail -1 | awk '{print $4}')
+      cpup=$(grep '^physical id' /proc/cpuinfo | sort | uniq | wc -l)
+      echo "${cpu} ${cpup}P ${cpuc}C ${cpun}L"
+    register: cpu
+
+  - name: Get system disk 
+    shell: lsblk -dnSo SIZE,TRAN | uniq -c | awk '{ if ($3 == "") { printf ($1"*"$2" ") } else { printf ($3"("$1"*"$2") ") }}'
+    register: disk
+
+  - name: Get system memory
+    shell: cat /proc/meminfo | awk '/MemTotal:/{printf ("%.0fGiB", $2/1024/1024)}'
+    register: memory
+
+  - name: Get service product name
+    shell: |
+        pro_name=$(cat /sys/devices/virtual/dmi/id/product_name)
+        pro_vendor=$(cat /sys/devices/virtual/dmi/id/sys_vendor)
+        echo "${pro_vendor} ${pro_name}"
+    register: product_name
+
+  - name: Get service product serial
+    shell: cat /sys/devices/virtual/dmi/id/product_serial
+    register: product_serial
+
+  - name: Create file file
+    file:
+      path: "{{ save_file }}"
+      state: touch
+      mode: 755
+    connection: local
+    run_once: true
+
+  - name: Clear file content
+    shell: |
+       echo -e "---\n" > {{ save_file }}
+    run_once: true
+
+  - name: Write variables to file
+    local_action:
+      module: shell
+              /usr/bin/echo -e 'HostName:' "{{ hostname.stdout }}\n"'IpAddress:' "{{ inventory_hostname }}\n"'IpmiAdress:' "{{ ipmiadd | default('None') }}\n"'ProductName:' "{{ product_name.stdout }}\n"'ProductSerial:' "{{ product_serial.stdout }}\n"'DiskInfo:' "{{ disk.stdout }}\n"'MemoryInfo:' "{{ memory.stdout }}\n"'CpuInfo:' "{{ cpu.stdout }}\n"'SystemType:' "{{ pretty.stdout }}\n"'KernelVersion:' "{{ kernel.stdout }}\n"  >> "{{ save_file }}"
+
+  - name: Debug save path
+    debug:
+      msg: "save path: {{ save_file }}"
+    run_once: true
