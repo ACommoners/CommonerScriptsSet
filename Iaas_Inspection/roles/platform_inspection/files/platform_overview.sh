@@ -85,7 +85,7 @@ function iaas_memory_overview(){
         memory_used_mb=$(/usr/bin/openstack hypervisor stats show -c memory_mb_used  -f value)
 	
 	# memory GB
-	memory_total_gb=$(awk 'BEGIN{printf "%.0fGiB\n",('$memory_total_mb' / '1024')*100}')
+	memory_total_gb=$(awk 'BEGIN{printf "%.0fGiB\n",('$memory_total_mb' / '1024')}')
 	# memory rate
 	mepm_used_rate=$(awk 'BEGIN{printf "%.2f%\n",('$memory_used_mb'/'$memory_total_mb')*100}')
 
