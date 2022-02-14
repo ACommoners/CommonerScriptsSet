@@ -90,6 +90,10 @@ cluster_interface=eth1
   
   4.ceph镜像下载安装依赖
     pip install -r /root/Auto_Ceph/requirements.txt --ignore-installed
+    当出现以下报错的时候执行：pip install GitPython, 再执行pip install kolla==9.4.0
+    ERROR: pip's legacy dependency resolver does not consider dependency conflicts when selecting   packages. This behaviour is the source of the following dependency conflicts.
+    gitdb2 4.0.2 requires gitdb>=4.0.1, but you'll have gitdb 0.6.4 which is incompatible.
+    gitpython 2.1.15 requires gitdb2<3,>=2, but you'll have gitdb2 4.0.2 which is incompatible.
       
   5. 下载docker
      sh /root/Auto_Ceph/bin/install -D
