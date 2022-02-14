@@ -7,4 +7,4 @@ pbr==5.6.0
 gitdb==0.6.4
 gitdb2==4.0.2
 GitPython==2.1.15
-kolla==9.4.0
+# kolla==9.4.0
