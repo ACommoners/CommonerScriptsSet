@@ -41,7 +41,8 @@ done
 ##############################
 # build config
 ##############################
-BUILD_DATA_PATH="$(pwd)/kolla-ceph"
+# BUILD_DATA_PATH="$(pwd)/kolla-ceph"
+BUILD_DATA_PATH="$(cd $(dirname $0); pwd)/kolla-ceph"
 BUILD_TAG_NUMBER="${BUILD_DATA_PATH}/TAG_CEPH_NUMBER"
 BUILD_RECORD="${BUILD_DATA_PATH}/BUILD_CEPH_RECORD"
 BUILD_LOG_PATH="${BUILD_DATA_PATH}/log"
