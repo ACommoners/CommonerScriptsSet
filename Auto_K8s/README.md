@@ -73,4 +73,7 @@ worker
 
 2、执行部署或者是扩容worker节点都是此步骤
    ansible-playbook -i  k8s-hosts site.yml
+   kubectl get cs 查看集群基本组件状态
+   kubectl get csr 查看未授权的 CSR 请求
+   kubectl certificate approve csr-name 授权csr请求
 ```
