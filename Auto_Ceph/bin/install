@@ -2,6 +2,7 @@
 
 # BASE=$(pwd)
 BASE_DIR=$(cd $(dirname $0); pwd)
+CONF_DIR=$(dirname $BASE_DIR)
 KOLLA_CEPH_PATH=${BASE_DIR}/kolla-ceph
 
 DOCKER_BASE=/opt
@@ -54,7 +55,7 @@ function kolla_ceph(){
         exit 0
      fi 
      \cp ${KOLLA_CEPH_PATH} /usr/local/bin/
-     sed -i "s|KOLLA-CEPH-PATH|${BASE_DIR}|g" /usr/local/bin/kolla-ceph
+     sed -i "s|KOLLA-CEPH-PATH|${CONF_DIR}|g" /usr/local/bin/kolla-ceph
      chmod -R 755 /usr/local/bin/kolla-ceph
      logger info "Kolla-ceph install success"
   fi
