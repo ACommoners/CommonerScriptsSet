@@ -113,7 +113,7 @@ cluster_interface=eth1
      registry = 172.17.2.179:5000 # 必须按照实际修改, 其它默认既可 
              
   8. 开始构建ceph镜像, 查看镜像
-     cd /root/Auto_Ceph/build/ && sh build.sh --tag nautilus
+     cd /root/Auto_Ceph/build/ && sh build.sh --tag nautilus (因网络不好下载镜像失败再次执行)
      docker image ls
        REPOSITORY                                                TAG                 IMAGE ID            CREATED             SIZE
        172.20.163.77:5000/kolla-ceph/centos-binary-ceph-mon      nautilus            a5e8a5ff08fc        13 days ago         792MB

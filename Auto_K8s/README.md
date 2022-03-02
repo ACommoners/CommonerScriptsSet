@@ -50,7 +50,7 @@ worker
 
 #### 部署准备
 ```
-1、下载k8s集群依赖包：sh download
+1、下载k8s集群依赖包：sh download(下载失败多下载几次)
 	> 离线部署: sh downloadh后，打包离线包：tar -zcf /root/kubelw.tar.gz /opt/kubelw  , 然后离线包传到部署机器：tar -zxvf /root/kubelw.tar.gz -C /opt/
 	> 在线部署：sh downloadh后接着第2步
 2、不管是离线还是在线部署，部署节点都需要安装ansible
