@@ -41,12 +41,12 @@ done
 ##############################
 # build config
 ##############################
-# BUILD_DATA_PATH="$(pwd)/kolla-ceph"
+BUILD_PATH="$(cd $(dirname $0); pwd)"
 BUILD_DATA_PATH="$(cd $(dirname $0); pwd)/kolla-ceph"
 BUILD_TAG_NUMBER="${BUILD_DATA_PATH}/TAG_CEPH_NUMBER"
 BUILD_RECORD="${BUILD_DATA_PATH}/BUILD_CEPH_RECORD"
 BUILD_LOG_PATH="${BUILD_DATA_PATH}/log"
-BUILD_CONFIG="ceph-build.conf"
+BUILD_CONFIG="${BUILD_PATH}/ceph-build.conf"
 
 ##############################
 # image tag
@@ -88,7 +88,7 @@ fi
 # build
 ##############################
 
-CMD="python kolla/cmd/build.py --config-file ${BUILD_CONFIG} --push  --tag ${CEPH_TAG}"
+CMD="python ${BUILD_PATH}/kolla/cmd/build.py --config-file ${BUILD_CONFIG} --push  --tag ${CEPH_TAG}"
 echo "$CMD"
 
 BUILD_LOG_NAME="${BUILD_LOG_PATH}/build-${CEPH_TAG}.log"
