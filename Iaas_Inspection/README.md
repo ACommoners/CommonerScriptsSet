@@ -29,7 +29,7 @@ example：
 
 
 ### 执行巡检并处理json数据
-
+> 注意：执行节点要与目标节点免密
 - ansible-playbook -i /etc/ansible/hosts/00-nodes site.yml 
 
 
