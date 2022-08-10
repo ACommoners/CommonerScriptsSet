@@ -1,0 +1,16 @@
+ansible==2.10.3
+ansible-base==2.10.3
+cffi==1.14.4
+cryptography==3.2.1
+enum34==1.1.10
+et-xmlfile==1.0.1
+ipaddress==1.0.23
+jdcal==1.4.1
+Jinja2==2.11.2
+MarkupSafe==1.1.1
+openpyxl==2.6.4
+packaging==20.4
+pycparser==2.20
+pyparsing==2.4.7
+PyYAML==5.3.1
+six==1.15.0

@@ -1,0 +1,31 @@
+---
+
+
+- name: Get platform control node service overview
+  script: control_service.sh
+  register: control_service
+  when: 
+    - inventory_hostname in groups['control']
+
+
+- name: Get platform compute node service overview
+  script: compute_service.sh
+  register: compute_service
+  when: 
+    - inventory_hostname in groups['compute']
+
+
+- name: Get platform overview
+  script: platform_overview.sh
+  register: platform_overview
+  when:
+    - inventory_hostname in groups['control'][0]
+
+
+
+- name: Debug  data
+  debug:
+    msg: "{{ hostvars | platform_inspection_filter }}"
+  connection: local
+  run_once: true
+

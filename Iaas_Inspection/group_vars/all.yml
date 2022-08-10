@@ -1,0 +1,42 @@
+---
+
+# engineer name
+engineer_name: 'test'
+
+# time: 2021-3-1
+now_day: "{{ '%Y-%m-%d' | strftime }}"
+
+# cluster node
+cluser_node_count: "{{ groups['all'] | length }}"
+
+# If you need to generate json data 'True or False'
+generate_json: True
+
+# write mode
+write_mode: 'w+'
+
+# json data save dir
+save_json_dir: 'save_data'
+
+
+# report 
+save_report_dir: 'report'
+report_xlsx_name: "report_{{ now_day }}.xlsx"
+report_path: "{{ playbook_dir }}/{{ save_report_dir }}/{{ report_xlsx_name }}"
+
+# xlsx file template
+xlsx_template_dir: 'xlsx_template'
+xlsx_template_name: 'xlsx_template.xlsx'
+xlsx_template_path: "{{ playbook_dir }}/{{ xlsx_template_dir }}/{{ xlsx_template_name }}"
+
+# json data save file name
+os_json_file_name: "os_{{ now_day }}.json"
+platform_json_file_name: "platform_{{ now_day }}.json"
+
+# After collecting the original inspection data, process it into json again
+report_json: "report_{{ now_day }}.json"
+
+# json data save path 
+os_inspection_path: "{{ playbook_dir }}/{{ save_json_dir }}/{{ os_json_file_name }}"
+platform_inspection_path: "{{ playbook_dir }}/{{ save_json_dir }}/{{ platform_json_file_name }}"
+report_json_path: "{{ playbook_dir }}/{{ save_json_dir }}/{{ report_json }}"

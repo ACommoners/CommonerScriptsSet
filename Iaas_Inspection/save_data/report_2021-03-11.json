@@ -1,0 +1,135 @@
+{
+      "os": {
+            "1.88.88.1": {
+                  "cpu_usedutilization": "3.77%", 
+                  "default_ipv4": "1.88.88.1", 
+                  "hostname": "control01", 
+                  "mem_usedutilization": "24.46%", 
+                  "os_pretty_name": "CentOS Linux 7 (Core)", 
+                  "size_usedutilization": "11%", 
+                  "uptime": "104"
+            }, 
+            "1.88.88.2": {
+                  "cpu_usedutilization": "4.31%", 
+                  "default_ipv4": "1.88.88.2", 
+                  "hostname": "control02", 
+                  "mem_usedutilization": "21.76%", 
+                  "os_pretty_name": "CentOS Linux 7 (Core)", 
+                  "size_usedutilization": "7%", 
+                  "uptime": "104"
+            }, 
+            "1.88.88.3": {
+                  "cpu_usedutilization": "3.90%", 
+                  "default_ipv4": "1.88.88.3", 
+                  "hostname": "control03", 
+                  "mem_usedutilization": "29.80%", 
+                  "os_pretty_name": "CentOS Linux 7 (Core)", 
+                  "size_usedutilization": "7%", 
+                  "uptime": "103"
+            }, 
+            "1.88.88.4": {
+                  "cpu_usedutilization": "0.36%", 
+                  "default_ipv4": "1.88.88.4", 
+                  "hostname": "compute01", 
+                  "mem_usedutilization": "4.62%", 
+                  "os_pretty_name": "CentOS Linux 7 (Core)", 
+                  "size_usedutilization": "2%", 
+                  "uptime": "103"
+            }, 
+            "1.88.88.5": {
+                  "cpu_usedutilization": "1.40%", 
+                  "default_ipv4": "1.88.88.5", 
+                  "hostname": "compute02", 
+                  "mem_usedutilization": "9.51%", 
+                  "os_pretty_name": "CentOS Linux 7 (Core)", 
+                  "size_usedutilization": "2%", 
+                  "uptime": "103"
+            }, 
+            "1.88.88.6": {
+                  "cpu_usedutilization": "0.82%", 
+                  "default_ipv4": "1.88.88.6", 
+                  "hostname": "compute03", 
+                  "mem_usedutilization": "13.74%", 
+                  "os_pretty_name": "CentOS Linux 7 (Core)", 
+                  "size_usedutilization": "2%", 
+                  "uptime": "103"
+            }, 
+            "1.88.88.7": {
+                  "cpu_usedutilization": "1.35%", 
+                  "default_ipv4": "1.88.88.7", 
+                  "hostname": "compute04", 
+                  "mem_usedutilization": "7.35%", 
+                  "os_pretty_name": "CentOS Linux 7 (Core)", 
+                  "size_usedutilization": "2%", 
+                  "uptime": "103"
+            }, 
+            "1.88.88.8": {
+                  "cpu_usedutilization": "0.77%", 
+                  "default_ipv4": "1.88.88.8", 
+                  "hostname": "compute05", 
+                  "mem_usedutilization": "13.86%", 
+                  "os_pretty_name": "CentOS Linux 7 (Core)", 
+                  "size_usedutilization": "2%", 
+                  "uptime": "103"
+            }
+      }, 
+      "platform": {
+            "compute_overview": {
+                  "cinder_volume": true, 
+                  "nova_compute": true, 
+                  "openvswitch_agent": true
+            }, 
+            "control_overview": {
+                  "control_ceph_mon": true, 
+                  "control_cinder": true, 
+                  "control_glance": true, 
+                  "control_haproxy": true, 
+                  "control_heat": true, 
+                  "control_horizon": true, 
+                  "control_keepalived": true, 
+                  "control_keystone": true, 
+                  "control_memcached": true, 
+                  "control_mysql": true, 
+                  "control_network": true, 
+                  "control_network_dhcp": true, 
+                  "control_neutron": true, 
+                  "control_nova": true, 
+                  "control_rabbitmq": true
+            }, 
+            "platform_overview": {
+                  "ceph_cluster_overview": {
+                        "ceph_health_status": true, 
+                        "ceph_osd_status": true, 
+                        "ceph_storage_rate": "0.58%", 
+                        "ceph_storage_total": "80TiB", 
+                        "ceph_storage_used": "477GiB"
+                  }, 
+                  "cluser_node_count": "8", 
+                  "engineer_name": "test", 
+                  "iaas_memory_overview": {
+                        "memory_total_gb": "306011GiB", 
+                        "memory_total_mb": "3133552", 
+                        "memory_used_mb": "155648", 
+                        "mepm_used_rate": "4.97%"
+                  }, 
+                  "iaas_service_overview": {
+                        "ops_cinder": true, 
+                        "ops_heat": true, 
+                        "ops_neutron": true, 
+                        "ops_nova": true
+                  }, 
+                  "iaas_url": "https://1.88.88.61:81", 
+                  "iaas_vcpus_overview": {
+                        "vcpus_core_rate": "12.15%", 
+                        "vcpus_core_total": "576", 
+                        "vcpus_core_used": "70"
+                  }, 
+                  "iaas_version": "ict-8.1.0", 
+                  "iaas_vm_sum": 9, 
+                  "montior_url": "https://1.88.88.61:3000", 
+                  "mysql_cluster_status": true, 
+                  "now_day": "2021-03-11", 
+                  "rabbitmq_cluster_status": true
+            }
+      }
+}
